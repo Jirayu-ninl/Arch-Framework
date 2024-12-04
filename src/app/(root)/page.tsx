@@ -134,7 +134,7 @@ const Button = ({
 }) => {
   return (
     <>
-      {index && index !== 0 && separator}
+      {index !== 0 && separator}
       <Link
         href={link}
         target='_blank'
