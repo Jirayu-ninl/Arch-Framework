@@ -1,9 +1,8 @@
 /* eslint-disable prettier/prettier */
 import type { AppProps } from 'next/app'
-import { Inter } from 'next/font/google'
-import { Prompt } from 'next/font/google'
+import { Inter, Prompt } from 'next/font/google'
 import { GoogleTagManager } from '@next/third-parties/google'
-import clsx from 'clsx'
+import { cn } from '@/libs/styles'
 
 import { env } from '@env'
 import { getSession } from '@backend/auth'
@@ -11,8 +10,7 @@ import { Wrapper } from '@/layouts/wrapper'
 import { App } from './layout.app'
 
 import 'react-toastify/dist/ReactToastify.css'
-import 'nprogress/nprogress.css'
-import './globals.css'
+import './global.scss'
 
 export { viewport, metadata } from '@config'
 
@@ -39,14 +37,13 @@ const Layout = async ({ children, app }: AppPropsWithLayout) => {
   return (
     <html
       lang='en'
-      className={clsx(
-        fInter.className,
-        `${fInter.variable} ${fPrompt.variable}`,
-      )}
+      className={cn(fInter.className, `${fInter.variable} ${fPrompt.variable}`)}
     >
       <body suppressHydrationWarning={true}>
         <Wrapper>
-          <App session={session} app={app} children={children} />
+          <App session={session} app={app}>
+            {children}
+          </App>
         </Wrapper>
         <GoogleTagManager gtmId={env.NEXT_PUBLIC_GTM} />
       </body>

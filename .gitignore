@@ -11,6 +11,7 @@ package-lock.json
 yarn.lock
 pnpm-lock.yaml
 yarn
+bun.lock
 
 # testing
 /coverage
@@ -36,13 +37,15 @@ yarn
 
 # packages
 /packages/*/dist/
+/arch/core
+
 
 # Generated
 public/fallback-*.js
 public/swe-*
 public/sw*
 public/workbox-*
-ronots.txt
+robots.txt
 
 # misc
 .DS_Store

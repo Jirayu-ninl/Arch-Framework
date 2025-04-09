@@ -45,14 +45,14 @@ const Page = () => {
 
   return (
     <RootLayout>
-      <div className='relative flex w-screen flex-col items-center justify-center bg-gradient-to-r from-white to-[#f7eeff] to-70% pt-24 dark:from-[#272727] dark:to-[#131313] md:h-screen md:pt-0'>
+      <div className='relative flex w-screen flex-col items-center justify-center bg-gradient-to-r from-white to-70% to-[#f7eeff] pt-24 md:h-screen md:pt-0 dark:from-[#272727] dark:to-[#131313]'>
         <div className='z-10 w-full px-6 pb-24 md:px-12 md:pb-0 lg:max-w-5xl xl:px-0'>
-          <section className='mr-auto pb-6 el:pb-10'>
-            <h6 className='text-xl uppercase el:text-3xl'>Introducing to</h6>
-            <h1 className='text-6xl font-black text-[#501ea0] dark:text-[#dab9ff] el:text-8xl'>
+          <section className='mr-auto el:pb-10 pb-6'>
+            <h6 className='el:text-3xl text-xl uppercase'>Introducing to</h6>
+            <h1 className='font-black el:text-8xl text-6xl text-[#501ea0] dark:text-[#dab9ff]'>
               ARCH Framework
             </h1>
-            <h2 className='text-base font-light el:text-xl'>
+            <h2 className='font-light el:text-xl text-base'>
               <span className='opacity-80'>
                 Scalability | Modularity | Full-stack typesafety
               </span>
@@ -75,16 +75,16 @@ const Page = () => {
               <p>in Your Elite Full-Stack Framework.</p>
             </div>
           </section>
-          <section className='pt-6 el:pt-10'>
+          <section className='el:pt-10 pt-6'>
             <div className='flex w-3/4 flex-wrap'>
               <p>1. Get started by editing</p>
               <Button title='src/app/(root)/page.tsx' link='' />
             </div>
             <p>2. Save and see your change instantly</p>
           </section>
-          <section className='pt-6 el:pt-10'>
+          <section className='el:pt-10 pt-6'>
             <h6 className='mb-2 font-bold'>Folders structure</h6>
-            <ul className='space-y-1 [&>li]:relative [&>li]:ml-2 [&>li]:flex [&>li]:flex-wrap [&>li]:space-x-1 [&>li]:pl-4 [&>li]:before:absolute [&>li]:before:left-0 [&>li]:before:top-1/2 [&>li]:before:h-2 [&>li]:before:w-2 [&>li]:before:-translate-y-1/2 [&>li]:before:rounded-[2px] [&>li]:before:bg-[#a269ff] [&>li]:before:content-[""]'>
+            <ul className='[&>li]:before:-translate-y-1/2 space-y-1 [&>li]:relative [&>li]:ml-2 [&>li]:flex [&>li]:flex-wrap [&>li]:space-x-1 [&>li]:pl-4 [&>li]:before:absolute [&>li]:before:top-1/2 [&>li]:before:left-0 [&>li]:before:h-2 [&>li]:before:w-2 [&>li]:before:rounded-[2px] [&>li]:before:bg-[#a269ff] [&>li]:before:content-[""]'>
               <li>
                 <Button title='src' link='' />
                 <p>Source project</p>
@@ -112,7 +112,7 @@ const Page = () => {
             </ul>
           </section>
         </div>
-        <div className='fixed bottom-3 right-0 h-[100vw] w-[100vw] md:absolute md:bottom-0 xl:h-[100vh] xl:w-[100vh]'>
+        <div className='fixed right-0 bottom-3 h-[100vw] w-[100vw] md:absolute md:bottom-0 xl:h-[100vh] xl:w-[100vh]'>
           <Logo />
         </div>
       </div>
@@ -157,7 +157,7 @@ const Logo = () => (
 
 const Footer = () => {
   return (
-    <footer className='dark:to-[#131313/0 fixed bottom-0 left-0 z-20 flex w-dvw justify-center bg-gradient-to-t from-white to-white/0 dark:from-[#131313] md:bg-none'>
+    <footer className='fixed bottom-0 left-0 z-20 flex w-dvw justify-center bg-gradient-to-t from-white to-white/0 md:bg-none dark:from-[#131313] dark:to-[#131313/0'>
       <div className='lg:px:0 z-50 flex h-20 w-full flex-col items-center justify-end pb-2 text-xs md:h-auto md:max-w-5xl md:flex-row md:justify-between md:px-8 md:text-base lg:px-0'>
         <p>
           <span className='opacity-40'>Developed by</span>{' '}

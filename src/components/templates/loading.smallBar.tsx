@@ -14,7 +14,7 @@ const LoadingSmallBar = ({ duration = 3 }: { duration?: number }) => {
             exit={{ scale: 0 }}
             transition={{ duration: 0.1 }}
           >
-            <div className='mb-3 mt-5 h-[10px] w-full rounded-md'>
+            <div className='mt-5 mb-3 h-[10px] w-full rounded-md'>
               <motion.div
                 className='m-0.5 h-[4px] rounded-md bg-primary-0'
                 animate={{ width: '100%' }}
@@ -23,7 +23,7 @@ const LoadingSmallBar = ({ duration = 3 }: { duration?: number }) => {
                   duration: duration,
                   ease: [0.33, 1, 0.68, 1],
                 }}
-              ></motion.div>
+              />
             </div>
           </motion.div>
         </AnimatePresence>

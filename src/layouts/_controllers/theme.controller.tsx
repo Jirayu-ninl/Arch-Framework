@@ -24,11 +24,7 @@ export const ThemeController = () => {
   }, [_setDark])
 
   useEffect(() => {
-    if (_dark) {
-      document.documentElement.classList.add('dark')
-    } else {
-      document.documentElement.classList.remove('dark')
-    }
+    document.documentElement.classList.toggle('dark', _dark)
   }, [_dark])
 
   return null

@@ -1,7 +1,8 @@
-import { MetadataRoute } from 'next'
-import { getBaseUrl } from '@/utils'
+import type { MetadataRoute } from 'next'
+import { env } from '@env'
 
 export default function robots(): MetadataRoute.Robots {
+  const baseURL = env.BASE_URL || 'https://arch.nexellab.com'
   return {
     rules: [
       {
@@ -14,6 +15,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: '/',
       },
     ],
-    sitemap: getBaseUrl() + '/sitemap.xml',
+    sitemap: `${baseURL}/sitemap.xml`,
   }
 }

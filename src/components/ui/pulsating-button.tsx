@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { cn } from '@/utils'
+import { cn } from '@/libs/styles'
 
 interface PulsatingButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -31,7 +31,7 @@ export default function PulsatingButton({
       {...props}
     >
       <div className='relative z-10'>{children}</div>
-      <div className='absolute left-1/2 top-1/2 size-full -translate-x-1/2 -translate-y-1/2 animate-pulse rounded-lg bg-inherit' />
+      <div className='absolute top-1/2 left-1/2 size-full -translate-x-1/2 -translate-y-1/2 animate-pulse rounded-lg bg-inherit' />
     </button>
   )
 }

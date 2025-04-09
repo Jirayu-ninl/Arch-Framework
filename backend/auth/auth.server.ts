@@ -1,5 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { NextAuthOptions } from 'next-auth'
+import type {
+  AuthOptions,
+  DefaultSession,
+  DefaultUser,
+  NextAuthOptions,
+} from 'next-auth'
 import { getServerSession } from 'next-auth'
 import { PrismaAdapter } from '@auth/prisma-adapter'
 import { headers } from 'next/headers'
@@ -11,8 +16,31 @@ import { env } from '@env'
 import { prisma } from '@arch/core/database/prisma'
 import { TIME } from '@arch/core/utils/time'
 
+declare module 'next-auth' {
+  interface User extends DefaultUser {
+    id: string
+    username: string
+    role: 'USER' | 'ADMIN' | 'SUPER_ADMIN'
+    plan: 'FREE' | 'PLUS' | 'PRO' | 'ELITE'
+    metadata: Record<string, unknown>
+  }
+
+  interface Session extends DefaultSession {
+    user: {
+      id: string
+      username: string
+      name: string
+      role: 'USER' | 'ADMIN' | 'SUPER_ADMIN'
+      plan: 'FREE' | 'PLUS' | 'PRO' | 'ELITE'
+      metadata: Record<string, unknown>
+    } & DefaultSession['user']
+  }
+}
+
 /** Next-Auth Configs here **/
-export const authOptions: NextAuthOptions | { adapter: any } = {
+export const authOptions:
+  | NextAuthOptions
+  | { adapter: AuthOptions['adapter'] } = {
   // pages: {
   //   signIn: '/',
   //   signOut: '/',
@@ -20,7 +48,7 @@ export const authOptions: NextAuthOptions | { adapter: any } = {
   //   newUser: '/',
   // },
   callbacks: {
-    session: ({ session, user }: any) => {
+    session: ({ session, user }) => {
       return {
         ...session,
         user: {
@@ -32,7 +60,7 @@ export const authOptions: NextAuthOptions | { adapter: any } = {
       }
     },
   },
-  adapter: PrismaAdapter(prisma),
+  adapter: PrismaAdapter(prisma) as AuthOptions['adapter'],
   events: {
     signIn: async ({ user }) => {
       const activeSession = await prisma.session.findFirst({
@@ -44,7 +72,7 @@ export const authOptions: NextAuthOptions | { adapter: any } = {
         },
       })
       if (activeSession) {
-        const headersList = headers()
+        const headersList = await headers()
         const ip = (headersList.get('x-forwarded-for') ?? '').split(',')[0]
         const userAgent = headersList.get('user-agent') || 'Unknown user-agent'
 

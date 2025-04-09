@@ -4,7 +4,6 @@
 
 import { Initialize } from './initialize'
 import { ThemeController } from './theme.controller'
-// import { CursorController } from './cursor.controller'
 // import { KeyboardController } from './keyboard.controller'
 
 export const Controllers = () => {
@@ -12,7 +11,6 @@ export const Controllers = () => {
     <>
       <Initialize />
       <ThemeController />
-      {/* <CursorController /> */}
       {/* <KeyboardController /> */}
     </>
   )

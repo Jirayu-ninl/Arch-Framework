@@ -1,11 +1,11 @@
 'use client'
 
+import type { TForm } from '../functions'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { toast as t } from 'react-toastify'
 import clsx from 'clsx'
 import { motion } from 'framer-motion'
-import type { toast } from 'react-toastify'
 import { formHandler } from '../functions'
 import { trpc } from '@backend/trpc/client'
 
@@ -16,6 +16,7 @@ const SignInEmail = () => {
   const { mutateAsync } = trpc.user.portal.signin.useMutation({
     onSuccess(data) {
       if (data && !data.success && data.message) {
+        // biome-ignore lint/style/useTemplate: <explanation>
         t.error('Error: ' + data.message)
         return
       }
@@ -24,26 +25,23 @@ const SignInEmail = () => {
       router.push('/app/dashboard')
     },
     onError: () => {
-      t.error(`Error: Connection failed`)
+      t.error('Error: Connection failed')
       setIsLoading(false)
       return
     },
   })
 
   const { handleChange, executeForm } = formHandler()
-  const handleSubmit = async (e: any) =>
-    executeForm(
-      e,
-      async (f: { email: string; password: string }, t: typeof toast) => {
-        try {
-          setIsLoading(true)
-          await mutateAsync(f)
-        } catch (e) {
-          t.error("Error: Can't set session")
-          throw new Error('AUTH: Set session failed')
-        }
-      },
-    )
+  const handleSubmit = async (e: React.FormEvent) =>
+    executeForm(e, async (f: TForm) => {
+      try {
+        setIsLoading(true)
+        await mutateAsync(f)
+      } catch (_e) {
+        t.error("Error: Can't set session")
+        throw new Error('AUTH: Set session failed')
+      }
+    })
 
   return (
     <>
@@ -92,8 +90,8 @@ const SignInEmail = () => {
             {isLoading ? 'loading...' : 'Login'}
           </button>
           <div className='flex pt-3'>
-            <input type='checkbox' className='Form-white-checkbox mr-2' />
-            <label className='flex'>
+            <label>
+              <input type='checkbox' className='Form-white-checkbox mr-2' />
               <p className='-mt-px text-xs'>Remember me</p>
             </label>
           </div>

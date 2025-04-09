@@ -34,7 +34,9 @@ optionals
 
 <h2 id="note">Get start</h2>
 
-- Git clone this repo with `git clone --recurse-submodules --remote-submodules https://github.com/Nexel-Lab/Arch-Framework`
+- Git clone this repo with `git clone https://github.com/Nexel-Lab/Arch-Framework`
+- Go to (root) folder `cd <app_name>` or Open app root folder in terminal
+- Git clone core module with `git clone https://github.com/Nexel-Lab/Arch-Core arch/core`
 - Rename `.env-example` to `.env`
 - Add required env `MONGODB_URI` (other env variables are optionals)
 - Run `pnpm install` and `pnpm pre:db`
@@ -48,6 +50,7 @@ optionals
 - 1.1 - Update app name in `global/config/app.ts`
 - 1.2 - Update app SEO in `global/config/meta/data.ts`
 - 1.3 - Update app contact in `global/config/contacts.ts`
+- 1.4 - Rename based url for sitemap in `src/app/sitemap.ts`
 - 2.1 - Setup global UI controllers in `src/layouts/_controllers/controllers.tsx`
 - Optional 1: Update app environment after adding or removing packages/ modules in `global/env.mjs`
 - Optional 2: add S3 to tRPC context 

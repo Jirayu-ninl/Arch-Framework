@@ -1,16 +1,16 @@
 'use client'
 
+import type { Providers, Session } from 'types'
 import { useSearchParams } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
 import { SignInEmail, SignInProviders, SignUpEmail } from './components'
-import { Session } from 'next-auth'
 
 const Client = ({
   providers,
   session,
 }: {
-  providers: any
+  providers: Providers | null
   session: Session | null
 }) => {
   const credCase = useSearchParams().get('case')
@@ -18,7 +18,7 @@ const Client = ({
   return (
     <>
       <div className='flex h-dvh w-dvw flex-col items-center justify-center bg-gradient-to-br from-slate-400 to-slate-500 dark:from-slate-800 dark:to-slate-600 '>
-        <div className='absolute bottom-0 right-0 mb-8 h-full w-full opacity-5'>
+        <div className='absolute right-0 bottom-0 mb-8 h-full w-full opacity-5'>
           <Image
             alt='logo'
             src='/logo_white.svg'

@@ -1,12 +1,10 @@
 'use client'
 
 import { useEffect } from 'react'
-import { useRouter } from 'next/navigation'
 import { useUiState, MODAL } from '@/store'
 
 const KeyboardController = () => {
   const _onToggleModal = useUiState((st) => st.onToggleModal)
-  const router = useRouter()
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -24,7 +22,7 @@ const KeyboardController = () => {
 
     document.addEventListener('keydown', down)
     return () => document.removeEventListener('keydown', down)
-  }, [_onToggleModal, router])
+  }, [_onToggleModal])
   return null
 }
 

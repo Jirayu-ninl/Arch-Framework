@@ -1,19 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 
+import type { TForm } from '../functions'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import clsx from 'clsx'
 import { motion } from 'framer-motion'
-import {
-  email as emailValidator,
-  password as passwordValidator,
-} from '@arch/core/utils/validator'
+import { validateEmail, validatePassword } from '@arch/core/utils/validator'
 import { formHandler } from '../functions'
 import { trpc } from '@backend/trpc/client'
-
 import { toast as t } from 'react-toastify'
-import type { toast } from 'react-toastify'
 
 const SignUpEmail = () => {
   const router = useRouter()
@@ -21,7 +17,7 @@ const SignUpEmail = () => {
   const { mutateAsync } = trpc.user.portal.signup.useMutation({
     onSuccess(data) {
       if (data && !data.success && data.message) {
-        t.error('Error: ' + data.message)
+        t.error(`Error: ${data.message}`)
         setIsLoading(false)
         return
       }
@@ -30,53 +26,50 @@ const SignUpEmail = () => {
       router.push('/portal')
     },
     onError: () => {
-      t.error(`Error: Connection failed`)
+      t.error('Error: Connection failed')
       setIsLoading(false)
       return
     },
   })
 
-  const [confirmPassword, setConfirmPassword] = useState(null)
+  const [confirmPassword, setConfirmPassword] = useState<string | null>(null)
 
   const { handleChange, executeForm } = formHandler({
     email: '',
     password: '',
   })
 
-  const handleSubmit = async (e: any) =>
-    executeForm(
-      e,
-      async (f: { email: string; password: string }, t: typeof toast) => {
-        setIsLoading(true)
-        try {
-          if (emailValidator(f.email) === null) {
-            t.warn('Please enter a valid E-mail')
-            setIsLoading(false)
-            return
-          }
-
-          if (f.password !== confirmPassword) {
-            t.warn('Passwords need to match!')
-            setIsLoading(false)
-            return
-          }
-
-          const IsValidPassword = passwordValidator.Func(f.password)
-
-          if (IsValidPassword.error) {
-            t.warn(IsValidPassword.msg)
-            setIsLoading(false)
-            return
-          }
-
-          await mutateAsync(f)
-        } catch (e) {
+  const handleSubmit = async (e: React.FormEvent) =>
+    executeForm(e, async (f: TForm) => {
+      setIsLoading(true)
+      try {
+        if (!validateEmail(f.email).isValid) {
+          t.warn('Please enter a valid E-mail')
           setIsLoading(false)
-          t.error("Error: Can't sign up")
-          throw new Error('AUTH: Sign up failed')
+          return
         }
-      },
-    )
+
+        if (f.password !== confirmPassword) {
+          t.warn('Passwords need to match!')
+          setIsLoading(false)
+          return
+        }
+
+        const passwordValidated = validatePassword(f.password)
+
+        if (!passwordValidated.isValid) {
+          t.warn(passwordValidated.error)
+          setIsLoading(false)
+          return
+        }
+
+        await mutateAsync(f)
+      } catch (_e) {
+        setIsLoading(false)
+        t.error("Error: Can't sign up")
+        throw new Error('AUTH: Sign up failed')
+      }
+    })
 
   return (
     <motion.div
@@ -135,7 +128,9 @@ const SignUpEmail = () => {
             autoComplete='off'
             required={true}
             disabled={isLoading}
-            onChange={(e: any) => setConfirmPassword(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setConfirmPassword(e.target.value)
+            }
           />
         </label>
         <button

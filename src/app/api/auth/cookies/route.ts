@@ -24,10 +24,9 @@ const POST = async (request: Request) => {
           }),
         },
       })
-    } else {
-      setRes.blocked('Invalid Method')
     }
-  } catch (e) {
+    setRes.blocked('Invalid Method')
+  } catch (_e) {
     setRes.internalError('Authorization failed')
   }
 }

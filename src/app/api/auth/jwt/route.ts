@@ -8,9 +8,8 @@ const Authenticated =
     const token = await getToken({ req, secret })
     if (token) {
       return await Fn(req, res)
-    } else {
-      res.status(500).json({ success: false, error: 'No permission!!' })
     }
+    res.status(500).json({ success: false, error: 'No permission!!' })
   }
 
 const App = async (req: NextApiRequest, res: NextApiResponse) => {

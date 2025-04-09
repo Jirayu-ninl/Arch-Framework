@@ -1,12 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 
+import type { Providers, Session } from 'types'
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { FaFacebookF, FaGoogle, FaGithub } from 'react-icons/fa6'
 import { signIn } from 'next-auth/react'
 
-const SignInProviders = ({ providers, session }: any) => {
+const SignInProviders = ({
+  providers,
+  session,
+}: { providers: Providers | null; session: Session | null }) => {
   const router = useRouter()
 
   useEffect(() => {
@@ -21,27 +25,33 @@ const SignInProviders = ({ providers, session }: any) => {
           <p className='px-3 text-xs'>or Continue with</p>
           <div className=' my-auto h-px w-12 bg-black/30 dark:bg-white/30' />
         </div>
-        <div
-          className='Anim flex w-full cursor-pointer items-center justify-center space-x-2 rounded-md bg-red-500/80 px-2 py-1 text-white dark:bg-white/20 dark:hover:bg-red-500'
-          onClick={() => signIn(providers.google.id)}
-        >
-          <FaGoogle size='xs' className='w-4' />
-          <p>Sign in with Google</p>
-        </div>
-        <div
-          className='Anim flex w-full cursor-pointer items-center justify-center space-x-2 rounded-md bg-blue-500/80 px-2 py-1 text-white dark:bg-white/20 dark:hover:bg-blue-500'
-          onClick={() => signIn(providers.google.id)}
-        >
-          <FaFacebookF size='xs' className='w-2.5' />
-          <p>Sign in with Facebook</p>
-        </div>
-        <div
-          className='Anim flex w-full cursor-pointer items-center justify-center space-x-2 rounded-md bg-gray-800/80 px-2 py-1 text-white dark:bg-white/20 dark:hover:bg-gray-800'
-          onClick={() => signIn(providers.github.id)}
-        >
-          <FaGithub size='xs' className='w-2.5' />
-          <p>Sign in with Github</p>
-        </div>
+        {providers?.google && (
+          <div
+            className='Anim flex w-full cursor-pointer items-center justify-center space-x-2 rounded-md bg-red-500/80 px-2 py-1 text-white dark:bg-white/20 dark:hover:bg-red-500'
+            onClick={() => signIn(providers.google.id)}
+          >
+            <FaGoogle size='xs' className='w-4' />
+            <p>Sign in with Google</p>
+          </div>
+        )}
+        {providers?.facebook && (
+          <div
+            className='Anim flex w-full cursor-pointer items-center justify-center space-x-2 rounded-md bg-blue-500/80 px-2 py-1 text-white dark:bg-white/20 dark:hover:bg-blue-500'
+            onClick={() => signIn(providers.facebook.id)}
+          >
+            <FaFacebookF size='xs' className='w-2.5' />
+            <p>Sign in with Facebook</p>
+          </div>
+        )}
+        {providers?.github && (
+          <div
+            className='Anim flex w-full cursor-pointer items-center justify-center space-x-2 rounded-md bg-gray-800/80 px-2 py-1 text-white dark:bg-white/20 dark:hover:bg-gray-800'
+            onClick={() => signIn(providers.github.id)}
+          >
+            <FaGithub size='xs' className='w-2.5' />
+            <p>Sign in with Github</p>
+          </div>
+        )}
       </div>
     </>
   )

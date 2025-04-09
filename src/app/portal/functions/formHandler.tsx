@@ -1,31 +1,53 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 'use client'
 
+import type { Id, ToastContent, ToastOptions } from 'react-toastify'
 import { useState } from 'react'
 import { toast } from 'react-toastify'
 
-type tForm = {
+export type TForm = {
   type?: string
-  email?: ''
-  password?: ''
+  email: ''
+  password: ''
 }
 
 const formHandler = (
-  initial: tForm = {
+  initial: TForm = {
     email: '',
     password: '',
   },
 ) => {
   const [formData, setFormData] = useState(initial)
 
-  const handleChange = (e: any) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) => {
+    const target = e.target
+    const name = target.name
+
     const value =
-      e.target.type === 'checkbox' ? e.target.checked : e.target.value
-    const name = e.target.name
-    setFormData((state) => ({ ...state, [name]: value }))
+      target instanceof HTMLInputElement && target.type === 'checkbox'
+        ? target.checked
+        : target.value
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }))
   }
 
-  const executeForm = async (e: any, callback: any) => {
+  const executeForm = async (
+    e: React.FormEvent,
+    callback: (
+      form: TForm,
+      toast: (
+        content: ToastContent<unknown>,
+        options?: ToastOptions<unknown>,
+      ) => Id,
+    ) => Promise<void>,
+  ) => {
     e.preventDefault()
     await callback(formData, toast)
   }

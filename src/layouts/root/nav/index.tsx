@@ -11,7 +11,7 @@ const Nav = () => {
   return (
     <>
       <div
-        className='Anim fixed right-4 top-4 z-100 h-10 w-10 cursor-pointer rounded-md p-2 shadow-sm hover:scale-110'
+        className='Anim fixed top-4 right-4 z-100 h-10 w-10 cursor-pointer rounded-md p-2 shadow-sm hover:scale-110'
         onClick={() => _setDark(!_dark)}
       >
         {_dark ? (

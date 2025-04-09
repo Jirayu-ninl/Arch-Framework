@@ -5,12 +5,12 @@ import { useState, useEffect } from 'react'
 import { toast } from 'react-toastify'
 import { trpc } from '@trpc'
 
-function Client(p: { session: Session | null }): JSX.Element {
+function Client(p: { session: Session | null }) {
   const clientQuery = trpc.debugger.testQuery.useQuery({ text: 'COSMOS' })
   const clientMutation = trpc.debugger.testMutation.useMutation({
     onSuccess: (data) => {
-      if (data && data.success && data.message) {
-        toast.success('Success: ' + data.message)
+      if (data?.success && data.message) {
+        toast.success(`Success: ${data.message}`)
         return
       }
       toast.warn('No data recieved')
@@ -32,7 +32,7 @@ function Client(p: { session: Session | null }): JSX.Element {
           console.log({ res })
           setTrpcServerData('Server caller is working')
         })
-        .catch((err) => setTrpcServerData('Failed to fetch api'))
+        .catch((_e) => setTrpcServerData('Failed to fetch api'))
     }
     if (!trpcServerData) {
       testTrpcServer()
@@ -65,7 +65,7 @@ function Client(p: { session: Session | null }): JSX.Element {
         </form>
         {secretMessage ? <p>{secretMessage}</p> : <p>No session</p>}
       </div>
-      <h6 className='mb-2 mt-6 text-xl'>Server:</h6>
+      <h6 className='mt-6 mb-2 text-xl'>Server:</h6>
       <div className='w-full space-y-1 rounded-md bg-foreground/5 p-4 text-center'>
         <p>{trpcServerData ? trpcServerData : 'Loading..'}</p>
       </div>

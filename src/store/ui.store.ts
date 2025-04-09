@@ -1,5 +1,6 @@
+import type { UiState } from './UiState'
 import { create } from 'zustand'
-import { UiState, LANG } from './UiState'
+import { LANG } from './UiState'
 
 /** Global store is here **/
 export const useUiState = create<UiState>((set, get) => ({

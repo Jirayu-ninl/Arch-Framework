@@ -33,7 +33,7 @@
       "@config/*": ["global/config/*"],
       "@constants": ["global/constants"],
       "@database": ["backend/database"],
-      "@env": ["global/env.mjs"],
+      "@env": ["global/env"],
       "@trpc": ["backend/trpc/client"],
       "public/*": ["public/*"],
       "types": ["types"],
@@ -41,7 +41,7 @@
       "@arch/*": ["arch/*"]
     },
     "typeRoots": ["./node_modules/@types", "./types/*.d.ts"],
-    "target": "ES2017"
+    "target": "ES2020"
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules", "**/**/node_modules", "**/*.spec.ts"]

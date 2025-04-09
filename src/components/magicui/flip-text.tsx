@@ -1,18 +1,18 @@
-"use client";
+'use client'
 
-import { AnimatePresence, motion, Variants } from "framer-motion";
+import { AnimatePresence, motion, Variants } from 'motion/react'
 
-import { cn } from "@/utils";
+import { cn } from '@/libs/styles'
 
-interface SlightFlipProps {
-  word: string;
-  duration?: number;
-  delayMultiple?: number;
-  framerProps?: Variants;
-  className?: string;
+interface FlipTextProps {
+  word: string
+  duration?: number
+  delayMultiple?: number
+  framerProps?: Variants
+  className?: string
 }
 
-export default function SlightFlip({
+export function FlipText({
   word,
   duration = 0.5,
   delayMultiple = 0.08,
@@ -21,24 +21,24 @@ export default function SlightFlip({
     visible: { rotateX: 0, opacity: 1 },
   },
   className,
-}: SlightFlipProps) {
+}: FlipTextProps) {
   return (
-    <div className="flex justify-center space-x-2">
-      <AnimatePresence mode="wait">
-        {word.split("").map((char, i) => (
+    <div className='flex justify-center space-x-2'>
+      <AnimatePresence mode='wait'>
+        {word.split('').map((char, i) => (
           <motion.span
             key={i}
-            initial="hidden"
-            animate="visible"
-            exit="hidden"
+            initial='hidden'
+            animate='visible'
+            exit='hidden'
             variants={framerProps}
             transition={{ duration, delay: i * delayMultiple }}
-            className={cn("origin-center drop-shadow-sm", className)}
+            className={cn('origin-center drop-shadow-xs', className)}
           >
             {char}
           </motion.span>
         ))}
       </AnimatePresence>
     </div>
-  );
+  )
 }
