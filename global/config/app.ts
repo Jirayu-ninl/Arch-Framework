@@ -2,8 +2,8 @@
 
 export const app = {
   NAME: 'Arch Framework',
-  VERSION: '2025.12.2701',
-  UPDATE_DATE: 'Dec 27, 2025',
+  VERSION: '2025.12.2801',
+  UPDATE_DATE: 'Dec 28, 2025',
   Dependencies: {
     Arch: '2.2.1',
     React: '19.2.3',
