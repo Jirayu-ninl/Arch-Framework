@@ -2,10 +2,10 @@
 import './global/env'
 import type { NextConfig } from 'next'
 import 'dotenv/config'
-import withPlugins from '@theiceji/compose-plugins'
 import withPWAInit from '@ducanh2912/next-pwa'
 // import { withSentryConfig } from '@sentry/nextjs'
 import bundleAnalyzer from '@next/bundle-analyzer'
+import withPlugins from '@theiceji/compose-plugins'
 import million from 'million/compiler'
 
 const withBundleAnalyzer = bundleAnalyzer({
@@ -111,6 +111,7 @@ const nextConfig: NextConfig = {
   generateEtags: true, // Enables ETags for caching
   compress: true, // Enables gzip/ Brotli compression
   productionBrowserSourceMaps: true, // Enables source maps for Sentry
+  typedRoutes: true,
   experimental: {
     staleTimes: {
       dynamic: 180,
@@ -121,7 +122,6 @@ const nextConfig: NextConfig = {
       allowedOrigins: ['nexellab.com', '*.nexellab.com'],
       bodySizeLimit: '10mb',
     },
-    typedRoutes: true,
     webVitalsAttribution: ['CLS', 'LCP'],
     swcTraceProfiling: true,
     // workerThreads: true, // Disabled due to issues with next build in NextJs 15

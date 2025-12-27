@@ -2,7 +2,11 @@
   "compilerOptions": {
     "module": "esnext",
     "moduleResolution": "bundler",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -13,7 +17,7 @@
     "isolatedModules": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "incremental": true,
     "baseUrl": ".",
     "plugins": [
@@ -22,27 +26,74 @@
       }
     ],
     "paths": {
-      "@/*": ["src/*"],
-      "@app": ["src/app"],
-      "@app/*": ["src/app/*"],
-      "@server": ["server"],
-      "@server/*": ["server/*"],
-      "@components": ["src/components"],
-      "@components/*": ["src/components/*"],
-      "@config": ["global/config"],
-      "@config/*": ["global/config/*"],
-      "@constants": ["global/constants"],
-      "@env": ["global/env"],
-      "@trpc": ["server/interfaces/trpc/client"],
-      "public/*": ["public/*"],
-      "types": ["types"],
-      "types/*": ["types/*"],
-      "#arch/*": ["arch/*"],
-      "#core/*": ["arch/core/*"]
+      "@/*": [
+        "src/*"
+      ],
+      "@app": [
+        "src/app"
+      ],
+      "@app/*": [
+        "src/app/*"
+      ],
+      "@server": [
+        "server"
+      ],
+      "@server/*": [
+        "server/*"
+      ],
+      "@components": [
+        "src/components"
+      ],
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@config": [
+        "global/config"
+      ],
+      "@config/*": [
+        "global/config/*"
+      ],
+      "@constants": [
+        "global/constants"
+      ],
+      "@env": [
+        "global/env"
+      ],
+      "@trpc": [
+        "server/interfaces/trpc/client"
+      ],
+      "public/*": [
+        "public/*"
+      ],
+      "types": [
+        "types"
+      ],
+      "types/*": [
+        "types/*"
+      ],
+      "#arch/*": [
+        "arch/*"
+      ],
+      "#core/*": [
+        "arch/core/*"
+      ]
     },
-    "typeRoots": ["./node_modules/@types", "./types/*.d.ts"],
+    "typeRoots": [
+      "./node_modules/@types",
+      "./types/*.d.ts"
+    ],
     "target": "ES2020"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules", "**/**/node_modules", "**/*.spec.ts"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/**/node_modules",
+    "**/*.spec.ts"
+  ]
 }
