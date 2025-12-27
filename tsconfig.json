@@ -19,7 +19,6 @@
     "experimentalDecorators": true,
     "jsx": "react-jsx",
     "incremental": true,
-    "baseUrl": ".",
     "plugins": [
       {
         "name": "next"
@@ -27,55 +26,55 @@
     ],
     "paths": {
       "@/*": [
-        "src/*"
+        "./src/*"
       ],
       "@app": [
-        "src/app"
+        "./src/app"
       ],
       "@app/*": [
-        "src/app/*"
+        "./src/app/*"
       ],
       "@server": [
-        "server"
+        "./server"
       ],
       "@server/*": [
-        "server/*"
+        "./server/*"
       ],
       "@components": [
-        "src/components"
+        "./src/components"
       ],
       "@components/*": [
-        "src/components/*"
+        "./src/components/*"
       ],
       "@config": [
-        "global/config"
+        "./global/config"
       ],
       "@config/*": [
-        "global/config/*"
+        "./global/config/*"
       ],
       "@constants": [
-        "global/constants"
+        "./global/constants"
       ],
       "@env": [
-        "global/env"
+        "./global/env"
       ],
       "@trpc": [
-        "server/interfaces/trpc/client"
+        "./server/interfaces/trpc/client"
       ],
       "public/*": [
-        "public/*"
+        "./public/*"
       ],
       "types": [
-        "types"
+        "./types"
       ],
       "types/*": [
-        "types/*"
+        "./types/*"
       ],
       "#arch/*": [
-        "arch/*"
+        "./arch/*"
       ],
       "#core/*": [
-        "arch/core/*"
+        "./arch/core/*"
       ]
     },
     "typeRoots": [
