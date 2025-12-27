@@ -36,6 +36,7 @@ declare module 'next-auth' {
       id: string
       name: string
       role: 'USER' | 'ADMIN' | 'SUPER_ADMIN'
+      plan: 'FREE' | 'PLUS' | 'PRO' | 'ELITE'
       metadata: Record<string, unknown>
     } & DefaultSession['user']
   }
@@ -107,4 +108,4 @@ export const authOptions:
   debug: process.env.NODE_ENV === 'development',
 }
 
-export const getSession = async () => await getServerSession(authOptions)
+export const getSession = () => getServerSession(authOptions)

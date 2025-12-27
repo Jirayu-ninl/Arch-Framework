@@ -6,7 +6,6 @@ import withPWAInit from '@ducanh2912/next-pwa'
 // import { withSentryConfig } from '@sentry/nextjs'
 import bundleAnalyzer from '@next/bundle-analyzer'
 import withPlugins from '@theiceji/compose-plugins'
-import million from 'million/compiler'
 
 const withBundleAnalyzer = bundleAnalyzer({
   enabled: process.env.ANALYZE === 'true',
@@ -31,39 +30,24 @@ const appExport = process.env.EXPORT !== undefined &&
   }
 
 const nextConfig: NextConfig = {
-  webpack: (config, { webpack }) => {
-    return {
-      ...config,
-      cache: { type: 'filesystem' },
-      plugins: [
-        ...config.plugins,
-        new webpack.ProvidePlugin({
-          React: 'react',
-        }),
-      ],
-      module: {
-        ...config.module,
-        rules: [
-          ...config.module.rules,
-          {
-            test: /\.(ogg|mp3|wav|mpe?g)$/i,
-            type: 'asset/resource',
-            generator: {
-              filename: 'static/media/[name]-[hash][ext]',
-            },
-          },
-          {
-            test: /\.mp4$/,
-            type: 'asset/resource',
-          },
-          {
-            test: /\.(glsl|vs|fs|vert|frag|ps)$/,
-            exclude: /node_modules/,
-            use: ['glslify-import-loader', 'raw-loader', 'glslify-loader'],
-          },
+  turbopack: {
+    rules: {
+      // GLSL / shader files → import as string (and/or glslify transform)
+      '*.{glsl,vs,fs,vert,frag,ps}': {
+        loaders: [
+          // Most stable baseline:
+          'raw-loader',
+
+          // Optional: enable if your shaders rely on glslify features
+          // (If this breaks under Turbopack, remove it and keep raw-loader only.)
+          'glslify-loader',
+
+          // Optional: only add if you truly need it and it works in your repo
+          // 'glslify-import-loader',
         ],
+        as: '*.js',
       },
-    }
+    },
   },
   // biome-ignore lint/suspicious/useAwait: NextJs type
   headers: async () => {
@@ -123,7 +107,6 @@ const nextConfig: NextConfig = {
       bodySizeLimit: '10mb',
     },
     webVitalsAttribution: ['CLS', 'LCP'],
-    swcTraceProfiling: true,
     // workerThreads: true, // Disabled due to issues with next build in NextJs 15
     // optimizeCss: true, // Disabled due to issues with next build
   },
@@ -144,16 +127,11 @@ const nextConfig: NextConfig = {
 //   automaticVercelMonitors: true,
 // }
 
-const millionConfig = {
-  auto: { rsc: true },
-}
-
 export default withPlugins(
   [
     // [withSentryConfig, sentryWebpackPluginOptions],
     withBundleAnalyzer,
     withPWA,
-    [million.next, millionConfig],
   ],
   nextConfig,
 )

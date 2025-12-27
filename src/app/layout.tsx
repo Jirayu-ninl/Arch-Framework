@@ -6,7 +6,7 @@ import { getSession } from '@server/plugins/auth'
 import type { AppProps } from 'next/app'
 import { Inter, Prompt } from 'next/font/google'
 import { cn } from '#core/utils/styles'
-import { Wrapper } from '@/layouts/wrapper'
+import { Wrapper } from '@/layouts/Wrapper'
 import { App } from './layout.app'
 
 import './globals.scss'
